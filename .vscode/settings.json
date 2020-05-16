@@ -1,8 +1,15 @@
- {
-	"[typescript]": {
-		"editor.formatOnSave": true, 
-		"editor.codeActionsOnSave": {
-			"source.organizeImports": true
-		}
-	}
+{
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "[javascript]": {
+    "editor.formatOnSave": true,
+  }
 }
