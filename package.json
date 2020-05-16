@@ -1,0 +1,35 @@
+{
+  "name": "vramework-js",
+  "version": "0.0.1",
+  "description": "A Javascript framework made with TypeScript to help create Discord bots using Discord.js",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vhoyon/vramework-js.git"
+  },
+  "keywords": [
+    "framework",
+    "discord",
+    "discord.js",
+    "bot"
+  ],
+  "author": {
+    "name": "Guillaume Marcoux",
+    "url": "https://github.com/V-ed"
+  },
+  "contributors": [
+    {
+      "name": "Stephano Mehawej",
+      "url": "https://github.com/StephanoMehawej"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vhoyon/vramework-js/issues"
+  },
+  "homepage": "https://github.com/Vhoyon/vramework-js#readme"
+}
