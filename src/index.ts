@@ -1,5 +1,7 @@
 import Discord from 'discord.js';
-import env from './utils/env';
+import { env, init as initEnv } from './utils/env';
+
+initEnv();
 
 const client = new Discord.Client();
 
