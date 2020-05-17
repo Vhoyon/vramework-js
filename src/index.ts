@@ -1,18 +1,19 @@
-console.log('Hello World');
+import Discord from 'discord.js';
+import env from './utils/env';
 
-const testTest = 2;
-// eslint-disable-next-line no-unused-vars
-const testTemplateLiteral = `test`;
+const client = new Discord.Client();
 
-if (testTest == 2) {
-	console.log('test');
-	console.log('ok');
-	
-	const ok: number[] = [];
-	
-	console.log(ok);
-	
-	(_tes: unknown): void => {
-		console.log('ok');
-	};
-}
+client.on('ready', () => {
+	console.log(`Logged in as ${client.user?.tag}!`);
+});
+
+client.on('message', msg => {
+	if (msg.content === 'ping') {
+		// msg.reply('Pong!');
+		msg.channel.send('test');
+	}
+});
+
+const token = env('BOT_TOKEN') as string | undefined;
+
+client.login(token);
