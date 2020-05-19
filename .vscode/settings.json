@@ -13,11 +13,14 @@
       "source.organizeImports": true,
       "source.fixAll.eslint": true
     },
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
   },
   "[javascript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
-    }
+    },
   }
 }
