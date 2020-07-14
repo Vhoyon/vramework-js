@@ -1,4 +1,6 @@
-export default abstract class LinkableCommand implements Command {
+import Command from './Command';
+
+export abstract class LinkableCommand implements Command {
 	abstract action(): void;
 
 	abstract getCalls(): string | string[];
@@ -22,3 +24,5 @@ export default abstract class LinkableCommand implements Command {
 		return `\\${optionToFormat}`;
 	}
 }
+
+export default LinkableCommand;

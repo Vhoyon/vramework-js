@@ -13,7 +13,7 @@ export default abstract class AbstractBotCommand extends LinkableCommand{
 	formatOption(_optionToFormat: string): string {
 		throw new Error('Method not implemented.');
 	}
-	action() {
+	action(): void {
 		throw new Error('Method not implemented.');
 	}
 }
