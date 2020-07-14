@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 
-export function init() {
-	dotenv.config();
+export function init(): dotenv.DotenvConfigOutput {
+	return dotenv.config();
 }
 
 export function env(key: string): boolean | string | number | undefined {

@@ -5,6 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Attach to debugging script",
+      "type": "node",
+      "request": "attach",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js",
+      ],
+      "restart": true,
+      "protocol": "inspector",
+      "port": 9456,
+      "internalConsoleOptions": "neverOpen",
+      "cwd": "${workspaceRoot}"
+    },
+    {
       "name": "Debug App",
       "type": "node",
       "request": "launch",
