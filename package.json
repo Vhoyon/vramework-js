@@ -6,12 +6,11 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "node src/index.ts",
-    "tmp-test": "ts-node src/dir-test.ts",
     "build": "tsc",
     "dev:debug": "ts-node-dev --inspect=9456 --respawn src/index.ts",
     "format": "eslint --fix \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 0",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
