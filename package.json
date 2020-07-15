@@ -10,7 +10,7 @@
     "dev:debug": "ts-node-dev --inspect=9456 --respawn src/index.ts",
     "format": "eslint --fix \"src/**/*.ts\"",
     "lint": "eslint \"src/**/*.ts\"",
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "echo \"Error: no test specified\"",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
@@ -45,6 +45,9 @@
   "files": [
     "dist/**/*"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
