@@ -1,6 +1,6 @@
 import LinkableCommand from './LinkableCommand';
 
-export default abstract class AbstractBotCommand extends LinkableCommand{
+export abstract class AbstractBotCommand extends LinkableCommand{
 	getCalls(): string | string[] {
 		throw new Error('Method not implemented.');
 	}
@@ -17,3 +17,5 @@ export default abstract class AbstractBotCommand extends LinkableCommand{
 		throw new Error('Method not implemented.');
 	}
 }
+
+export default AbstractBotCommand;
