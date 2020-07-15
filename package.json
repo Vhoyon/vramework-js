@@ -1,5 +1,5 @@
 {
-  "name": "vramework-js",
+  "name": "@vhoyon/vramework-js",
   "version": "0.0.1",
   "description": "A Javascript framework made with TypeScript to help create Discord bots using Discord.js",
   "main": "dist/index.js",
