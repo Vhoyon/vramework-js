@@ -52,7 +52,7 @@
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "recursive-readdir": "^2.2.2",
-    "vcommand-parser": "^1.4.1"
+    "vcommand-parser": "^1.5.1"
   },
   "devDependencies": {
     "@types/node": "^14.0.23",
@@ -63,7 +63,7 @@
     "@typescript-eslint/parser": "^2.34.0",
     "eslint": "^7.4.0",
     "ts-node": "^8.10.2",
-    "ts-node-dev": "^1.0.0-pre.51",
-    "typescript": "^3.9.6"
+    "ts-node-dev": "^1.0.0-pre.52",
+    "typescript": "^3.9.7"
   }
 }
