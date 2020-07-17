@@ -15,28 +15,45 @@ async function getLinkableCommandClasses(dirPath: string): Promise<(new (...args
 	
 	const defaultImports = (await Promise.all(filePaths.map(async filePath => (await import(filePath)).default)));
 	
-	const commandClasses: (new (...args: unknown[]) => LinkableCommand)[] = defaultImports.filter(commandInstance => commandInstance && commandInstance.prototype instanceof LinkableCommand);
+	const commandClasses: (new (...args: unknown[]) => LinkableCommand)[] = defaultImports.filter(commandInstance => {
+		return commandInstance && commandInstance.prototype instanceof LinkableCommand;
+	});
 	
 	return commandClasses;
 }
 
 export class CommandContainer {
-	readonly links: { [key: string]: new (...args: unknown[]) => LinkableCommand };
+	readonly links: ReadonlyMap<string, new (...args: unknown[]) => LinkableCommand>;
 	
 	private constructor(classes: ((new (...args: unknown[]) => LinkableCommand)[])) {
-		this.links = {};
+		this.links = this.createLinkableCommandsMap(classes);
+	}
+	
+	protected createLinkableCommandsMap(classes: ((new (...args: unknown[]) => LinkableCommand)[])): Map<string, new (...args: unknown[]) => LinkableCommand> {
+		const linkMap = new Map<string, new (...args: unknown[]) => LinkableCommand>();
+		
+		const initLink = (link: string, linkClass: new (...args: unknown[]) => LinkableCommand): void => {
+			linkMap.set(link, linkClass);
+		};
 		
 		classes.forEach(commandClass => {
-			const calls = new commandClass().getCalls();
-			
-			if (typeof calls == 'string') {
-				this.links[calls] = commandClass;
-			} else {
-				calls.forEach(call => {
-					this.links[call] = commandClass;
-				});
+			try {
+				const commandInstance = new commandClass();
+				const calls = commandInstance.getCalls();
+				
+				if (typeof calls == 'string') {
+					initLink(calls, commandClass);
+				} else {
+					calls.forEach(call => {
+						initLink(call, commandClass);
+					});
+				}
+			} catch {
+				// Simply skip abstract / unformed LinkableCommand classes
 			}
 		});
+		
+		return linkMap;
 	}
 	
 	static async createFromDir(dirPath: string): Promise<CommandContainer> {

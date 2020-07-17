@@ -1,9 +1,6 @@
 import LinkableCommand from './LinkableCommand';
 
 export abstract class AbstractBotCommand extends LinkableCommand{
-	getCalls(): string | string[] {
-		throw new Error('Method not implemented.');
-	}
 	getHelp(): string {
 		throw new Error('Method not implemented.');
 	}
@@ -11,9 +8,6 @@ export abstract class AbstractBotCommand extends LinkableCommand{
 		throw new Error('Method not implemented.');
 	}
 	formatOption(_optionToFormat: string): string {
-		throw new Error('Method not implemented.');
-	}
-	action(): void {
 		throw new Error('Method not implemented.');
 	}
 }

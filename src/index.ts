@@ -14,12 +14,12 @@ CommandContainer.createFromDir('./src/test-commands').then(commandContainer => {
 	
 	client.on('message', msg => {
 		if(!msg.author.bot){
-			const request = VCommandParser.parseLazy(msg.cleanContent);
+			const request = VCommandParser.parseLazy(msg.cleanContent, '! ');
 			
-			if(request.command) {
+			const commandClass = request.command && commandContainer.links.get(request.command);
+			
+			if(commandClass) {
 				request.doParseOptions();
-				
-				const commandClass = commandContainer.links[request.command];
 				
 				const command = new commandClass();
 				
