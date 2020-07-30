@@ -4,22 +4,26 @@ export function init(envPath?: string): dotenv.DotenvConfigOutput {
 	return dotenv.config({path: envPath});
 }
 
-export function env(key: string): boolean | string | number | undefined {
+export function env<T extends boolean | string | number>(key: string, defaultValue?: T): T | undefined {
 	const envValue = process.env[key];
 	
 	if (!envValue) {
-		return envValue;
+		return undefined;
 	} else {
 		const lowerCasedValue = envValue.toLowerCase();
 		
+		if (!envValue) {
+			return defaultValue;
+		}
+		
 		if (lowerCasedValue == 'true') {
-			return true;
+			return true as T;
 		} else if (lowerCasedValue == 'false') {
-			return false;
+			return false as T;
 		} else if (envValue.match(/^[0-9]+(\\.[0-9]+)?$/)) {
-			return +envValue;
+			return +envValue as T;
 		} else {
-			return envValue;
+			return envValue as T;
 		}
 	}
 }

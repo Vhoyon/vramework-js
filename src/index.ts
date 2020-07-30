@@ -28,7 +28,7 @@ CommandContainer.createFromDir('./src/test-commands').then(commandContainer => {
 		}
 	});
 	
-	const token = env('BOT_TOKEN') as string | undefined;
+	const token = env<string>('BOT_TOKEN');
 	
 	client.login(token);
 });
