@@ -20,7 +20,7 @@ export function env<T extends boolean | string | number>(key: string, defaultVal
 			return true as T;
 		} else if (lowerCasedValue == 'false') {
 			return false as T;
-		} else if (envValue.match(/^[0-9]+(\\.[0-9]+)?$/)) {
+		} else if (/^[0-9]+(\\.[0-9]+)?$/.test(envValue)) {
 			return +envValue as T;
 		} else {
 			return envValue as T;
