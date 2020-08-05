@@ -2,13 +2,12 @@ import path from 'path';
 import readdir from 'recursive-readdir';
 import LinkableCommand from '../LinkableCommand';
 
-type Type<T> = new (...args: unknown[]) => T;
+export type Type<T> = new (...args: unknown[]) => T;
 
 /**
  *
  * @param dirPath 	Path to the directory that contains the LinkableCommand classes.
- * 					Can be either a full path or a relative path (from the package.json location).
- * 					On Windows, the full path must have the drive letter lower cased.
+ * 					The path is resolved using Node's `path.resolve()` function.
  */
 async function getLinkableCommandClasses(dirPath: string): Promise<Type<LinkableCommand>[]> {
 	const fullDirPath = path.resolve(dirPath);
@@ -29,6 +28,14 @@ export class CommandContainer {
 	
 	private constructor(classes: Type<LinkableCommand>[]) {
 		this.links = this.createLinkableCommandsMap(classes);
+	}
+	
+	injectLinkableCommands(...classes: Type<LinkableCommand>[]): void {
+		const linkMap = this.createLinkableCommandsMap(classes);
+		
+		linkMap.forEach((linkableCommand, call) => {
+			(this.links as Map<string, Type<LinkableCommand>>).set(call, linkableCommand);
+		});
 	}
 	
 	protected createLinkableCommandsMap(classes: Type<LinkableCommand>[]): Map<string, Type<LinkableCommand>> {
