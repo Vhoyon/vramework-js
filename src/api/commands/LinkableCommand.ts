@@ -1,3 +1,4 @@
+import { OptionDef } from 'vcommand-parser';
 import Command from './Command';
 
 export abstract class LinkableCommand implements Command {
@@ -10,7 +11,7 @@ export abstract class LinkableCommand implements Command {
 	getCommandDescription?(): string;
 	
 	//TODO implement when options are a thing!
-	getOptions?(): string[];
+	getOptions?(): OptionDef[];
 	
 	getHelp(): string {
 		return 'undefined';
@@ -20,7 +21,7 @@ export abstract class LinkableCommand implements Command {
 		return `\\${commandToFormat}`;
 	}
 	
-	formatOption(optionToFormat: string): string{
+	formatOption(optionToFormat: string): string {
 		return `\\${optionToFormat}`;
 	}
 }

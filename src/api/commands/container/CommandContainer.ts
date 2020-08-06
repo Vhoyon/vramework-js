@@ -1,8 +1,7 @@
 import path from 'path';
 import readdir from 'recursive-readdir';
+import { InitializableType as Type } from '../../../utils/type';
 import LinkableCommand from '../LinkableCommand';
-
-export type Type<T> = new (...args: unknown[]) => T;
 
 /**
  *
