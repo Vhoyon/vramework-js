@@ -3,24 +3,24 @@ import { InitializableTypeWithArgs as TypeArgs } from '../utils/type';
 import CommandContainer from './commands/container/CommandContainer';
 import DiscordEventListener, { DiscordEventListenerOptions } from './listeners/DiscordEventListener';
 
-type BotManagerOptions = {
+type VBotManagerOptions = {
 	client: Discord.Client;
 	customDiscordEventListener: TypeArgs<DiscordEventListener, [CommandContainer | Promise<CommandContainer> | string, Discord.Client, Partial<DiscordEventListenerOptions>]>;
 	discordEventListenerOptions: Partial<DiscordEventListenerOptions>;
 }
 
-export class BotManager {
+export class VBotManager {
 	readonly client: Discord.Client;
-	protected options: BotManagerOptions;
+	protected options: VBotManagerOptions;
 	
 	readonly listener: DiscordEventListener;
 	
-	constructor(commandContainer: CommandContainer | Promise<CommandContainer> | string, options: Partial<BotManagerOptions> = {}) {
+	constructor(commandContainer: CommandContainer | Promise<CommandContainer> | string, options: Partial<VBotManagerOptions> = {}) {
 		this.client = options.client || new Discord.Client();
 		
 		const discordEventListenerOptions = options.discordEventListenerOptions || {};
 		
-		const defaultOptions: BotManagerOptions = {
+		const defaultOptions: VBotManagerOptions = {
 			client: this.client,
 			discordEventListenerOptions: discordEventListenerOptions,
 			customDiscordEventListener: DiscordEventListener,
@@ -42,4 +42,4 @@ export class BotManager {
 	}
 }
 
-export default BotManager;
+export default VBotManager;

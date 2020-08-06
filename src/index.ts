@@ -1,9 +1,9 @@
-import BotManager from './api/BotManager';
+import VBotManager from './api/VBotManager';
 import { env, init as initEnv } from './utils/env';
 
 initEnv();
 
-const manager = new BotManager('./src/test-commands');
+const manager = new VBotManager('./src/test-commands');
 
 manager.listener.on('ready', () => {
 	console.log(`Logged in as ${manager.client.user?.tag}!`);
