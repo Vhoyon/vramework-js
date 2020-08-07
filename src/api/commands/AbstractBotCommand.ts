@@ -1,5 +1,6 @@
 import Discord from 'discord.js';
 import { VParsedCommand } from 'vcommand-parser';
+import { InitializableTypeWithArgs as TypeWithArgs } from '../../utils/type';
 import CommandRouter from '../CommandRouter';
 import DiscordCommand from './DiscordCommand';
 import LinkableCommand from './LinkableCommand';
@@ -9,6 +10,18 @@ export abstract class AbstractBotCommand extends LinkableCommand implements Disc
 	router!: CommandRouter;
 	message!: Discord.Message;
 	client!: Discord.Client;
+	
+	constructor(copyCommand?: AbstractBotCommand) {
+		super();
+		
+		if (copyCommand) {
+			this.init({
+				request: copyCommand.request,
+				router: copyCommand.router,
+				message: copyCommand.message,
+			});
+		}
+	}
 	
 	init(data: { request: VParsedCommand; router: CommandRouter; message: Discord.Message }): void {
 		({
@@ -94,6 +107,22 @@ export abstract class AbstractBotCommand extends LinkableCommand implements Disc
 	
 	editMessageForChannel(channel: Discord.TextChannel | Discord.DMChannel | Discord.NewsChannel, message: Discord.MessageResolvable, text: string): Promise<Discord.Message> | null {
 		return channel.messages.resolve(message)?.edit(text) ?? null;
+	}
+	
+	async callCommand(command: string): Promise<void | Error> {
+		const container = await this.router.commandContainer;
+		
+		const commandType = container.links.get(command);
+		
+		if (commandType) {
+			const commandInstance = commandType.prototype instanceof AbstractBotCommand
+				? new (commandType as unknown as TypeWithArgs<AbstractBotCommand, [AbstractBotCommand]>)(this)
+				: new commandType();
+			
+			return commandInstance.action();
+		}
+		
+		return new Error(`Command '${command}' not found in the given command container.`);
 	}
 	
 	// getHelp(): string {
