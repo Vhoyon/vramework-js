@@ -2,7 +2,7 @@ import { OptionDef } from 'vcommand-parser';
 import Command from './Command';
 
 export abstract class LinkableCommand implements Command {
-	abstract action(): void;
+	abstract async action(): Promise<void>;
 	
 	abstract getCalls(): string | string[];
 	
@@ -13,8 +13,8 @@ export abstract class LinkableCommand implements Command {
 	//TODO implement when options are a thing!
 	getOptions?(): OptionDef[];
 	
-	getHelp(): string {
-		return 'undefined';
+	getHelp(): string | undefined {
+		return undefined;
 	}
 	
 	formatCommand(commandToFormat: string): string {

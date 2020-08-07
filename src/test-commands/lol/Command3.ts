@@ -1,7 +1,7 @@
 import AbstractBotCommand from '../../api/commands/AbstractBotCommand';
 
 export default class Command3 extends AbstractBotCommand {
-	action(): void {
+	async action(): Promise<void> {
 		console.log('3');
 		// throw new Error('Method not implemented.');
 	}

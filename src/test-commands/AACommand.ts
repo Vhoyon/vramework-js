@@ -1,7 +1,7 @@
 import AbstractCommand from './AbstractCommand';
 
 export default class AACommand extends AbstractCommand {
-	action(): void {
+	async action(): Promise<void> {
 		throw new Error('Method not implemented.');
 	}
 	
