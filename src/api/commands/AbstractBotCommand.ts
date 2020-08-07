@@ -1,3 +1,4 @@
+import Discord from 'discord.js';
 import { VParsedCommand } from 'vcommand-parser';
 import CommandRouter from '../CommandRouter';
 import LinkableCommand from './LinkableCommand';
@@ -5,10 +6,17 @@ import LinkableCommand from './LinkableCommand';
 export abstract class AbstractBotCommand extends LinkableCommand {
 	request!: VParsedCommand;
 	router!: CommandRouter;
+	message!: Discord.Message;
+	client!: Discord.Client;
 	
-	init(request: VParsedCommand, router: CommandRouter): void {
-		this.request = request;
-		this.router = router;
+	init(data: { request: VParsedCommand; router: CommandRouter; message: Discord.Message }): void {
+		({
+			request: this.request,
+			router: this.router,
+			message: this.message,
+		} = data);
+		
+		this.client = this.message.client;
 	}
 	// getHelp(): string {
 	// 	throw new Error('Method not implemented.');

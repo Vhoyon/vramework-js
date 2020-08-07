@@ -1,11 +1,11 @@
 import Discord from 'discord.js';
 import { InitializableTypeWithArgs as TypeArgs } from '../../utils/type';
-import CommandRouter from '../CommandRouter';
+import CommandRouter, { CommandRouterOptions } from '../CommandRouter';
 import CommandContainer from '../commands/container/CommandContainer';
 
 export type DiscordEventListenerOptions = {
-	customCommandRouter: TypeArgs<CommandRouter, [CommandContainer | Promise<CommandContainer> | string]>;
-}
+	customCommandRouter: TypeArgs<CommandRouter, [CommandContainer | Promise<CommandContainer> | string, Partial<CommandRouterOptions>]>;
+} & CommandRouterOptions;
 
 export class DiscordEventListener {
 	readonly client: Discord.Client;
@@ -17,12 +17,17 @@ export class DiscordEventListener {
 		this.client = client;
 		
 		const defaultOptions: DiscordEventListenerOptions = {
-			customCommandRouter: CommandRouter,
+			customCommandRouter: CommandRouter
 		};
 		
 		this.options = {...defaultOptions, ...options};
 		
-		this.commandRouter = new this.options.customCommandRouter(commandContainer);
+		const commandRouterOptions: CommandRouterOptions = {
+			commandPrefix: options.commandPrefix,
+			optionPrefix: options.optionPrefix,
+		};
+		
+		this.commandRouter = new this.options.customCommandRouter(commandContainer, commandRouterOptions);
 		
 		this.on('message', this.onMessage.bind(this));
 	}

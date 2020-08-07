@@ -1,13 +1,14 @@
 import Discord from 'discord.js';
 import { InitializableTypeWithArgs as TypeArgs } from '../utils/type';
+import { CommandRouterOptions } from './CommandRouter';
 import CommandContainer from './commands/container/CommandContainer';
 import DiscordEventListener, { DiscordEventListenerOptions } from './listeners/DiscordEventListener';
 
-type VBotManagerOptions = {
+export type VBotManagerOptions = {
 	client: Discord.Client;
 	customDiscordEventListener: TypeArgs<DiscordEventListener, [CommandContainer | Promise<CommandContainer> | string, Discord.Client, Partial<DiscordEventListenerOptions>]>;
 	discordEventListenerOptions: Partial<DiscordEventListenerOptions>;
-}
+} & CommandRouterOptions
 
 export class VBotManager {
 	readonly client: Discord.Client;
@@ -30,10 +31,13 @@ export class VBotManager {
 		
 		this.options = fullOptions;
 		
+		discordEventListenerOptions.commandPrefix = fullOptions.commandPrefix || discordEventListenerOptions.commandPrefix;
+		discordEventListenerOptions.optionPrefix = fullOptions.optionPrefix || discordEventListenerOptions.optionPrefix;
+		
 		this.listener = new fullOptions.customDiscordEventListener(commandContainer, this.client, discordEventListenerOptions);
 	}
 	
-	start(token: string): void {
+	start(token: string | undefined): void {
 		this.client.login(token);
 	}
 	
