@@ -8,7 +8,7 @@ export type RouterPrefixFunction<T> = (message: Discord.Message) => T;
 export type CommandRouterOptions = {
 	commandPrefix?: string | RouterPrefixFunction<string>;
 	optionPrefix?: OptionPrefix | RouterPrefixFunction<OptionPrefix>;
-}
+};
 
 export class CommandRouter {
 	readonly commandContainer: Promise<CommandContainer>;

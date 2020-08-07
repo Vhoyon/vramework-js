@@ -8,7 +8,7 @@ export type VBotManagerOptions = {
 	client: Discord.Client;
 	customDiscordEventListener: TypeArgs<DiscordEventListener, [CommandContainer | Promise<CommandContainer> | string, Discord.Client, Partial<DiscordEventListenerOptions>]>;
 	discordEventListenerOptions: Partial<DiscordEventListenerOptions>;
-} & CommandRouterOptions
+} & CommandRouterOptions;
 
 export class VBotManager {
 	readonly client: Discord.Client;
