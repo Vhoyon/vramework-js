@@ -31,8 +31,8 @@ export class VBotManager {
 		
 		this.options = fullOptions;
 		
-		discordEventListenerOptions.commandPrefix = fullOptions.commandPrefix || discordEventListenerOptions.commandPrefix;
-		discordEventListenerOptions.optionPrefix = fullOptions.optionPrefix || discordEventListenerOptions.optionPrefix;
+		discordEventListenerOptions.commandPrefix = discordEventListenerOptions.commandPrefix ?? fullOptions.commandPrefix;
+		discordEventListenerOptions.optionPrefix = discordEventListenerOptions.optionPrefix ?? fullOptions.optionPrefix;
 		
 		this.listener = new fullOptions.customDiscordEventListener(commandContainer, this.client, discordEventListenerOptions);
 	}
