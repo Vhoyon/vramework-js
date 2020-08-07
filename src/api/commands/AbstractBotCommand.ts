@@ -88,6 +88,14 @@ export abstract class AbstractBotCommand extends LinkableCommand implements Disc
 		return this.sendMessageToUser(this.getUser(), text);
 	}
 	
+	editMessage(message: Discord.MessageResolvable, text: string): Promise<Discord.Message> | null {
+		return this.editMessageForChannel(this.getChannel(), message, text);
+	}
+	
+	editMessageForChannel(channel: Discord.TextChannel | Discord.DMChannel | Discord.NewsChannel, message: Discord.MessageResolvable, text: string): Promise<Discord.Message> | null {
+		return channel.messages.resolve(message)?.edit(text) ?? null;
+	}
+	
 	// getHelp(): string {
 	// 	throw new Error('Method not implemented.');
 	// }
