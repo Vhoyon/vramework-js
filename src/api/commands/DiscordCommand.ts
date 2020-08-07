@@ -33,7 +33,7 @@ export interface DiscordCommand {
 	
 	sendMessageToUser(user: Discord.User, text: string): Promise<Discord.Message>;
 	
-	replyInDM(text: string): Promise<Discord.Message> | null;
+	replyInDM(text: string): Promise<Discord.Message>;
 }
 
 export default DiscordCommand;

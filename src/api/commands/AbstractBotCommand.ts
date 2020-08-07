@@ -84,10 +84,8 @@ export abstract class AbstractBotCommand extends LinkableCommand implements Disc
 		return user.send(text);
 	}
 	
-	replyInDM(text: string): Promise<Discord.Message> | null {
-		const user = this.getUser();
-		
-		return user && this.sendMessageToUser(user, text);
+	replyInDM(text: string): Promise<Discord.Message> {
+		return this.sendMessageToUser(this.getUser(), text);
 	}
 	
 	// getHelp(): string {
