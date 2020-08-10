@@ -2,12 +2,15 @@ import Discord from 'discord.js';
 import { VParsedCommand } from 'vcommand-parser';
 import { InitializableTypeWithArgs as TypeWithArgs } from '../../utils/type';
 import CommandRouter from '../CommandRouter';
+import MessageEventDigger from '../helpers/MessageEventDigger';
 import DiscordCommand from './DiscordCommand';
 import LinkableCommand from './LinkableCommand';
 
 export abstract class AbstractBotCommand extends LinkableCommand implements DiscordCommand {
 	request!: VParsedCommand;
 	router!: CommandRouter;
+	messageDigger!: MessageEventDigger;
+	
 	message!: Discord.Message;
 	client!: Discord.Client;
 	
@@ -18,19 +21,20 @@ export abstract class AbstractBotCommand extends LinkableCommand implements Disc
 			this.init({
 				request: copyCommand.request,
 				router: copyCommand.router,
-				message: copyCommand.message,
+				messageDigger: copyCommand.messageDigger,
 			});
 		}
 	}
 	
-	init(data: { request: VParsedCommand; router: CommandRouter; message: Discord.Message }): void {
+	init(data: { request: VParsedCommand; router: CommandRouter; messageDigger: MessageEventDigger }): void {
 		({
 			request: this.request,
 			router: this.router,
-			message: this.message,
+			messageDigger: this.messageDigger,
 		} = data);
 		
 		this.client = this.message.client;
+		this.message = this.messageDigger.message;
 	}
 	
 	getActualCall(): string {

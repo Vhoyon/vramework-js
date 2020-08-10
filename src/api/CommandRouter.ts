@@ -2,8 +2,9 @@ import Discord from 'discord.js';
 import VCommandParser, { OptionPrefix } from 'vcommand-parser';
 import AbstractBotCommand from './commands/AbstractBotCommand';
 import CommandContainer from './commands/container/CommandContainer';
+import MessageEventDigger from './helpers/MessageEventDigger';
 
-export type RouterPrefixFunction<T> = (message: Discord.Message) => T;
+export type RouterPrefixFunction<T> = (digger: MessageEventDigger) => T;
 
 export type CommandRouterOptions = {
 	commandPrefix?: string | RouterPrefixFunction<string>;
@@ -27,8 +28,10 @@ export class CommandRouter {
 	}
 	
 	async route(message: Discord.Message): Promise<void> {
-		const commandPrefix = typeof this.options.commandPrefix != 'function' ? this.options.commandPrefix : this.options.commandPrefix(message) ;
-		const optionPrefix = typeof this.options.optionPrefix != 'function' ? this.options.optionPrefix : this.options.optionPrefix(message);
+		const messageDigger = new MessageEventDigger(message);
+		
+		const commandPrefix = typeof this.options.commandPrefix != 'function' ? this.options.commandPrefix : this.options.commandPrefix(messageDigger) ;
+		const optionPrefix = typeof this.options.optionPrefix != 'function' ? this.options.optionPrefix : this.options.optionPrefix(messageDigger);
 		
 		const request = VCommandParser.parseLazy(message.cleanContent, commandPrefix, optionPrefix);
 		
@@ -45,7 +48,7 @@ export class CommandRouter {
 				command.init({
 					request: request,
 					router: this,
-					message: message
+					messageDigger: messageDigger
 				});
 			}
 			
