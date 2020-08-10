@@ -33,8 +33,8 @@ export abstract class AbstractBotCommand extends LinkableCommand implements Disc
 			messageDigger: this.messageDigger,
 		} = data);
 		
-		this.client = this.message.client;
 		this.message = this.messageDigger.message;
+		this.client = this.message.client;
 	}
 	
 	getActualCall(): string {
