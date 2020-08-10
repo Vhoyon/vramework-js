@@ -37,12 +37,12 @@ export class VBotManager {
 		this.listener = new fullOptions.customDiscordEventListener(commandContainer, this.client, discordEventListenerOptions);
 	}
 	
-	start(token: string | undefined): void {
-		this.client.login(token);
+	start(token: string | undefined): Promise<string> {
+		return this.client.login(token);
 	}
 	
 	stop(): void {
-		this.client.destroy();
+		return this.client.destroy();
 	}
 }
 
