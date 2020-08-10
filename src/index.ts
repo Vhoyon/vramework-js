@@ -4,8 +4,8 @@ import { env, init as initEnv } from './utils/env';
 initEnv();
 
 const manager = new VBotManager('./src/test-commands', {
-	commandPrefix: (message): string => {
-		if (message.channel.id == message.channel.id + '3') {
+	commandPrefix: (digger): string => {
+		if (digger.message.author.username == 'V-ed') {
 			return '!!';
 		}
 		
