@@ -8,13 +8,9 @@ export function env<T extends boolean | string | number>(key: string, defaultVal
 	const envValue = process.env[key];
 	
 	if (!envValue) {
-		return undefined;
+		return defaultValue;
 	} else {
 		const lowerCasedValue = envValue.toLowerCase();
-		
-		if (!envValue) {
-			return defaultValue;
-		}
 		
 		if (lowerCasedValue == 'true') {
 			return true as T;
