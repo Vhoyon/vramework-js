@@ -16,6 +16,10 @@ export class VBotManager {
 	
 	readonly listener: DiscordEventListener;
 	
+	constructor(commandContainer: CommandContainer, options: Partial<VBotManagerOptions>);
+	constructor(commandContainer: Promise<CommandContainer>, options: Partial<VBotManagerOptions>);
+	constructor(commandContainer: string, options: Partial<VBotManagerOptions>);
+	
 	constructor(commandContainer: CommandContainer | Promise<CommandContainer> | string, options: Partial<VBotManagerOptions> = {}) {
 		this.client = options.client || new Discord.Client();
 		
