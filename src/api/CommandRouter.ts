@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import VCommandParser, { OptionPrefix } from 'vcommand-parser';
+import { OptionPrefix, VCommandParser } from 'vcommand-parser';
 import AbstractBotCommand from './commands/AbstractBotCommand';
 import CommandContainer from './commands/container/CommandContainer';
 import MessageEventDigger from './helpers/MessageEventDigger';
@@ -33,7 +33,11 @@ export class CommandRouter {
 		const commandPrefix = typeof this.options.commandPrefix != 'function' ? this.options.commandPrefix : this.options.commandPrefix(messageDigger) ;
 		const optionPrefix = typeof this.options.optionPrefix != 'function' ? this.options.optionPrefix : this.options.optionPrefix(messageDigger);
 		
-		const request = VCommandParser.parseLazy(message.cleanContent, commandPrefix, optionPrefix);
+		const request = VCommandParser.parse(message.cleanContent, {
+			lazy: true,
+			commandPrefix: commandPrefix,
+			optionPrefix: optionPrefix,
+		});
 		
 		const container = await this.commandContainer;
 		
