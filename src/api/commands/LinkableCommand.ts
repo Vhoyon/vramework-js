@@ -2,7 +2,7 @@ import { OptionDef } from 'vcommand-parser';
 import Command from './Command';
 
 export abstract class LinkableCommand implements Command {
-	abstract async action(): Promise<void>;
+	abstract action(): Promise<void>;
 	
 	abstract getCalls(): string | string[];
 	
