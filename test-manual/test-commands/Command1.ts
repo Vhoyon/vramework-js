@@ -1,4 +1,4 @@
-import AbstractBotCommand from '../api/commands/AbstractBotCommand';
+import { AbstractBotCommand } from '../../src/index';
 
 export default class Command1 extends AbstractBotCommand {
 	async action(): Promise<void> {

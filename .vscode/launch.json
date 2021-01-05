@@ -32,7 +32,7 @@
         "ts-node/register"
       ],
       "args": [
-        "${workspaceFolder}/src/index.ts"
+        "${workspaceFolder}/test-manual/test-bot.ts"
       ],
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,

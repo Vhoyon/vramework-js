@@ -1,25 +1,14 @@
+import AbstractBotCommand from './api/commands/AbstractBotCommand';
 import VBotManager from './api/VBotManager';
 import { env, init as initEnv } from './utils/env';
 
-initEnv();
+export {
+	VBotManager,
+	AbstractBotCommand,
 
-const manager = new VBotManager('./src/test-commands', {
-	commandPrefix: (digger): string => {
-		if (digger.message.author.username == 'V-ed') {
-			return '!!';
-		}
-		
-		return '!';
-	},
-	optionPrefix: '+'
-});
+	// Utils
+	env,
+	initEnv
+};
 
-manager.listener.on('ready', () => {
-	console.log(`Logged in as ${manager.client.user?.tag}!`);
-});
-
-const token = env<string>('BOT_TOKEN');
-
-if (token) {
-	manager.start(token);
-}
+export default VBotManager;
