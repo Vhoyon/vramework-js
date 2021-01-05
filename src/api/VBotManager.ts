@@ -16,6 +16,8 @@ export class VBotManager {
 	
 	readonly listener: DiscordEventListener;
 	
+	private didAddStopOnExit = false;
+	
 	constructor(commandContainer: CommandContainer, options: Partial<VBotManagerOptions>);
 	constructor(commandContainer: Promise<CommandContainer>, options: Partial<VBotManagerOptions>);
 	constructor(commandContainer: string, options: Partial<VBotManagerOptions>);
@@ -42,7 +44,19 @@ export class VBotManager {
 	}
 	
 	start(token: string | undefined): Promise<string> {
-		return this.client.login(token);
+		const loginPromise = this.client.login(token);
+		
+		if (!this.didAddStopOnExit) {
+			loginPromise.then(() => {
+				process.on('SIGINT', this.stop.bind(this));
+				process.on('SIGUSR1', this.stop.bind(this));
+				process.on('SIGUSR2', this.stop.bind(this));
+				process.on('uncaughtException', this.stop.bind(this));
+			});
+			this.didAddStopOnExit = true;
+		}
+		
+		return loginPromise;
 	}
 	
 	stop(): void {
